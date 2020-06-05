@@ -10,3 +10,6 @@ def setup_module(module):
 
 def test_passes_for_happy_message_when_returns_happy():
     assert mood_object.analyse_mood("I am in happy mood!") == "Happy"
+
+def test_passes_for_sad_message_when_returns_sad():
+    assert mood_object.analyse_mood("I am in sad mood!") == "Sad"
