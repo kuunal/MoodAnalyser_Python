@@ -1,7 +1,6 @@
 from multipledispatch  import dispatch
 
 class mood_analyser:
-    message=""
 
     def __init__(self,*message):
         if(len(message)>0):
