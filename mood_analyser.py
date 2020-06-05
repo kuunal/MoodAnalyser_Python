@@ -6,7 +6,6 @@ class mood_analyser:
     def __init__(self,*message):
         if(len(message)>0):
             mood_analyser.message=message[0]
-            self.analyse_mood()
 
     @dispatch(str)
     def analyse_mood(self,message):

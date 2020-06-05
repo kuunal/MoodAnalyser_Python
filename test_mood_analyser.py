@@ -13,3 +13,7 @@ def test_passes_for_happy_message_when_returns_happy():
 
 def test_passes_for_sad_message_when_returns_sad():
     assert mood_object.analyse_mood("I am in sad mood!") == "Sad"
+
+def test_passes_when_message_passed_through_constructor_for_happy_message():
+    mood_object1 = mood_analyser("I am in happy mood")
+    assert mood_object1.analyse_mood() == "Happy"
