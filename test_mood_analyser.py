@@ -62,3 +62,10 @@ class TestMoodAnalyser:
             mood_object = MoodAnalyser()
             assert mood_object.equals(mood.return_mood_analyser_object("Incorrect Class","MoodAnalyser"))
         assert str(e.value) == "Classname or package name is invalid!" 
+
+    
+    def test_given_moodanalyser_class_with_parameters_when_corect_returns_object(self):
+        mood = MoodAnalyserFactory()
+        mood_object = MoodAnalyser()
+        assert mood_object.equals(mood.return_mood_analyser_object("mood_analyser","MoodAnalyser","I am in happy mood"))
+        
