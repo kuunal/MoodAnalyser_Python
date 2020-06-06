@@ -15,5 +15,9 @@ class MoodAnalyserFactory:
 
     def invoke_methods(self, filename, classname , methodname, *parameters):
         mood_object = self.return_mood_analyser_object(filename, classname, *parameters)
-        method = getattr(mood_object,methodname)
-        return method()
+        try:
+            method = getattr(mood_object,methodname)
+        except AttributeError:
+            raise MoodAnalyserError("Invalid method name","Invalid method")
+        else:
+            return method()

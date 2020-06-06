@@ -88,3 +88,11 @@ class TestMoodAnalyser:
         mood_factory = MoodAnalyserFactory()
         mood = mood_factory.invoke_methods("mood_analyser","MoodAnalyser", "analyse_mood", "I am in happy mood")
         assert mood is "Happy"
+
+    def test_given_method_name_when_incorrect_returns_throws_exception(self):
+        with pytest.raises(MoodAnalyserError) as e:
+            mood_object = MoodAnalyser("I am in happy mood")
+            mood_factory = MoodAnalyserFactory()
+            mood = mood_factory.invoke_methods("mood_analyser","MoodAnalyser", "InvalidMethiod", "I am in happy mood")
+            assert mood is "Happy"
+        assert str(e.value) == "Invalid method name"
