@@ -12,3 +12,8 @@ class MoodAnalyserFactory:
                 return mood_class()
             else:
                 return mood_class(parameters[0])
+
+    def invoke_methods(self, filename, classname , methodname, *parameters):
+        mood_object = self.return_mood_analyser_object(filename, classname, *parameters)
+        method = getattr(mood_object,methodname)
+        return method()

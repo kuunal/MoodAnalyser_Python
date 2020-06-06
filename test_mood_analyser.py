@@ -69,6 +69,12 @@ class TestMoodAnalyser:
         mood_object = MoodAnalyser()
         assert mood_object.equals(mood.return_mood_analyser_object("mood_analyser","MoodAnalyser","I am in happy mood"))
         
+    # def test_given_parameterized_moodanalyser_object_(self):
+    #     mood = MoodAnalyserFactory()
+    #     mood_object = MoodAnalyser()
+    #     result = mood.return_mood_analyser_object("mood_analyser","MoodAnalyser","I am in happy mood").analyse_mood()
+    #     assert result == "Happy"
+
 
     def test_given_MoodAnalyser_class_when_incorect_throws_exception(self):
         with pytest.raises(MoodAnalyserError) as e:
@@ -76,3 +82,9 @@ class TestMoodAnalyser:
             mood_object = MoodAnalyser()
             assert mood_object.equals(mood.return_mood_analyser_object("mood_analyser","Incorrect Class","I am in happy mood"))
         assert str(e.value) == "Classname or package name is invalid!" 
+
+    def test_given_method_name_when_correct_returns_happy(self):
+        mood_object = MoodAnalyser("I am in happy mood")
+        mood_factory = MoodAnalyserFactory()
+        mood = mood_factory.invoke_methods("mood_analyser","MoodAnalyser", "analyse_mood", "I am in happy mood")
+        assert mood is "Happy"
