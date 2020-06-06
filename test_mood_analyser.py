@@ -45,5 +45,20 @@ class TestMoodAnalyser:
     def test_given_moodanalyser_class_when_corect_returns_object(self):
         mood = MoodAnalyserFactory()
         mood_object = MoodAnalyser()
-        assert mood_object.equals(mood.return_mood_analyser_object("mood_analyser"))
+        assert mood_object.equals(mood.return_mood_analyser_object("mood_analyser","MoodAnalyser"))
         
+
+    def test_given_MoodAnalyser_class_when_incorect_throws_exception(self):
+        with pytest.raises(MoodAnalyserError) as e:
+            mood = MoodAnalyserFactory()
+            mood_object = MoodAnalyser()
+            assert mood_object.equals(mood.return_mood_analyser_object("mood_analyser","Incorrect Class"))
+        assert str(e.value) == "Classname or package name is invalid!" 
+
+        
+    def test_given_package_when_incorect_throws_exception(self):
+        with pytest.raises(MoodAnalyserError) as e:
+            mood = MoodAnalyserFactory()
+            mood_object = MoodAnalyser()
+            assert mood_object.equals(mood.return_mood_analyser_object("Incorrect Class","MoodAnalyser"))
+        assert str(e.value) == "Classname or package name is invalid!" 
