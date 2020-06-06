@@ -1,6 +1,7 @@
 import pytest
 from mood_analyser import MoodAnalyser
 from exceptions.mood_analyser_exceptions import  MoodAnalyserError
+from  mood_analyser_factory import MoodAnalyserFactory
 
 class TestMoodAnalyser:
 
@@ -41,3 +42,8 @@ class TestMoodAnalyser:
             mood_object.analyse_mood()
         assert str(mood_exception.value) == "Invalid message!"
     
+    def test_given_moodanalyser_class_when_corect_returns_object(self):
+        mood = MoodAnalyserFactory()
+        mood_object = MoodAnalyser()
+        assert mood_object.equals(mood.return_mood_analyser_object("mood_analyser"))
+        

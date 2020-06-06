@@ -19,3 +19,9 @@ class MoodAnalyser:
                 return "Sad"
         except AttributeError:
             raise MoodAnalyserError("Invalid message!","Empty")
+    
+
+    def equals(self, object):
+        if self==object or isinstance(object,MoodAnalyser):
+            return True
+        
