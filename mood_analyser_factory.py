@@ -6,23 +6,26 @@ class MoodAnalyserFactory:
             mood_class = __import__(filename)
             mood_class = getattr(mood_class, classname)
         except (ModuleNotFoundError, AttributeError):
-            raise MoodAnalyserError("Classname or package name is invalid!","Invalid class or package")
+            raise MoodAnalyserError("Classname or package name is invalid!","INVALID_CLASS_OR_PACKAGE_EXCEPTION")
         else:
             if(len(parameters)==0):
                 return mood_class()
             else:
                 return mood_class(parameters[0])
 
-    def invoke_methods(self, filename, classname , methodname, *parameters):
-        mood_object = self.return_mood_analyser_object(filename, classname, *parameters)
+    def invoke_methods(self, mood_object , methodname, *parameters):
         try:
             method = getattr(mood_object,methodname)
         except AttributeError:
-            raise MoodAnalyserError("Invalid method name","Invalid method")
+            raise MoodAnalyserError("Invalid method name","INVALID_METHOD_EXCEPTION")
         else:
             return method()
 
-    def change_fields(self, mood_object, methodname, fieldname, value):
-        setattr(mood_object,fieldname,value)
-        method = getattr(mood_object,methodname)
-        return method()
+    def change_fields_values(self, mood_object, methodname, fieldname, value):
+        try:
+            getattr(mood_object,fieldname)
+        except AttributeError:
+            raise MoodAnalyserError("No such field found","NO_SUCH_FIELD_EXCEPTION")
+        else:
+            setattr(mood_object,fieldname,value)
+            return self.invoke_methods(mood_object,methodname)
