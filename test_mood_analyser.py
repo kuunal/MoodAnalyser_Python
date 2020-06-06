@@ -69,3 +69,10 @@ class TestMoodAnalyser:
         mood_object = MoodAnalyser()
         assert mood_object.equals(mood.return_mood_analyser_object("mood_analyser","MoodAnalyser","I am in happy mood"))
         
+
+    def test_given_MoodAnalyser_class_when_incorect_throws_exception(self):
+        with pytest.raises(MoodAnalyserError) as e:
+            mood = MoodAnalyserFactory()
+            mood_object = MoodAnalyser()
+            assert mood_object.equals(mood.return_mood_analyser_object("mood_analyser","Incorrect Class","I am in happy mood"))
+        assert str(e.value) == "Classname or package name is invalid!" 
