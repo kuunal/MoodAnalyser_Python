@@ -21,3 +21,8 @@ class MoodAnalyserFactory:
             raise MoodAnalyserError("Invalid method name","Invalid method")
         else:
             return method()
+
+    def change_fields(self, mood_object, methodname, fieldname, value):
+        setattr(mood_object,fieldname,value)
+        method = getattr(mood_object,methodname)
+        return method()

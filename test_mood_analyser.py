@@ -80,19 +80,26 @@ class TestMoodAnalyser:
         with pytest.raises(MoodAnalyserError) as e:
             mood = MoodAnalyserFactory()
             mood_object = MoodAnalyser()
-            assert mood_object.equals(mood.return_mood_analyser_object("mood_analyser","Incorrect Class","I am in happy mood"))
+            assert mood_object.equals(mood.return_mood_analyser_object("mood_analyser",
+                                            "Incorrect Class","I am in happy mood"))
         assert str(e.value) == "Classname or package name is invalid!" 
 
     def test_given_method_name_when_correct_returns_happy(self):
-        mood_object = MoodAnalyser("I am in happy mood")
         mood_factory = MoodAnalyserFactory()
-        mood = mood_factory.invoke_methods("mood_analyser","MoodAnalyser", "analyse_mood", "I am in happy mood")
+        mood = mood_factory.invoke_methods("mood_analyser","MoodAnalyser", 
+                                            "analyse_mood", "I am in happy mood")
         assert mood is "Happy"
 
     def test_given_method_name_when_incorrect_returns_throws_exception(self):
         with pytest.raises(MoodAnalyserError) as e:
-            mood_object = MoodAnalyser("I am in happy mood")
             mood_factory = MoodAnalyserFactory()
-            mood = mood_factory.invoke_methods("mood_analyser","MoodAnalyser", "InvalidMethiod", "I am in happy mood")
+            mood = mood_factory.invoke_methods("mood_analyser","MoodAnalyser", 
+                                                "InvalidMethiod", "I am in happy mood")
             assert mood is "Happy"
         assert str(e.value) == "Invalid method name"
+
+    def test_given_field_name_when_correct_changes_field_and_returns_sad(self):
+        mood_factory = MoodAnalyserFactory()
+        mood_object = mood_factory.return_mood_analyser_object("mood_analyser", "MoodAnalyser")
+        result_mood = mood_factory.change_fields(mood_object, "analyse_mood", "message","I am in happy mood!")
+        assert result_mood == "Happy"
